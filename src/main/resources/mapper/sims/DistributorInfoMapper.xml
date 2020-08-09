@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.sims.mapper.DistributorInfoMapper">
+    <select id="FindAllDistributorWithUserXml" resultType="java.util.HashMap">
+        Select d.*,u.name input_name from distributor_info d inner join user u on d.input_id = u.id
+    </select>
+</mapper>
