@@ -3,7 +3,6 @@ package com.example.demo.sims.controller;
 
 import com.example.demo.sims.entity.DistributorInfo;
 import com.example.demo.sims.service.IDistributorInfoService;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
