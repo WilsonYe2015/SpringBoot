@@ -1,4 +1,4 @@
-package com.example.demo.sims.aspect;
+package com.example.demo.sims.common.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;

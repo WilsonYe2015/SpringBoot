@@ -1,6 +1,7 @@
 package com.example.demo.sims.controller;
 
 
+import com.example.demo.sims.common.exception.BizException;
 import com.example.demo.sims.entity.User;
 import com.example.demo.sims.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,12 +73,21 @@ public class UserController {
     @PostMapping("/add")
     public boolean Add(@RequestBody User user)
     {
+        if(user.getName()==null){
+            throw  new BizException("-1","用户姓名不能为空！");
+        }
         return userService.Add(user)>0;
     }
 
     @PostMapping("/edit")
     public boolean Edit(@RequestBody User user)
     {
+        if(user.getName()==null){
+            throw  new BizException("-1","用户姓名不能为空！");
+        }
+        if(user.getId()<=0){
+            throw  new BizException("-1","用户ID不能为空！");
+        }
         return userService.Edit(user)>0;
     }
 
