@@ -1,5 +1,6 @@
 package com.example.demo.sims.common.model;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.example.demo.sims.common.enums.CommonEnum;
 import com.example.demo.sims.common.exception.BaseErrorInfoInterface;
 
@@ -101,15 +102,15 @@ public class ResultBody {
      */
     public static ResultBody error( String message) {
         ResultBody rb = new ResultBody();
-        rb.setCode("-1");
+        rb.setCode(CommonEnum.ERROR.getResultCode());
         rb.setMessage(message);
         rb.setResult(null);
         return rb;
     }
 
-   /* @Override
+    @Override
     public String toString() {
-        return JSONObject.toJSONString(this);
-    }*/
+        return JSONUtils.toJSONString(this);
+    }
 
 }
