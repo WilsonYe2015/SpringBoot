@@ -73,7 +73,7 @@ public class UserController {
     @PostMapping("/add")
     public boolean Add(@RequestBody User user)
     {
-        if(user.getName()==null){
+        if(user.getName()==null || user.getName().isEmpty()){
             throw  new BizException("-1","用户姓名不能为空！");
         }
         return userService.Add(user)>0;
@@ -82,10 +82,10 @@ public class UserController {
     @PostMapping("/edit")
     public boolean Edit(@RequestBody User user)
     {
-        if(user.getName()==null){
+        if(user.getName()==null|| user.getName().isEmpty()){
             throw  new BizException("-1","用户姓名不能为空！");
         }
-        if(user.getId()<=0){
+        if(user.getId()==null|| user.getId()<=0){
             throw  new BizException("-1","用户ID不能为空！");
         }
         return userService.Edit(user)>0;

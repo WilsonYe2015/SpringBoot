@@ -46,7 +46,7 @@ public class DistributorInfoController {
     @PostMapping("/add")
     public boolean Add(@RequestBody DistributorInfo distributorInfo)
     {
-        if(distributorInfo.getDistName()==null){
+        if(distributorInfo.getDistName()==null || distributorInfo.getDistName().isEmpty()){
             throw  new BizException("-1","经销商姓名不能为空！");
         }
         return distributorInfoService.Add(distributorInfo)>0;
@@ -55,10 +55,10 @@ public class DistributorInfoController {
     @PostMapping("/edit")
     public boolean Edit(@RequestBody DistributorInfo distributorInfo)
     {
-        if(distributorInfo.getDistName()==null){
+        if(distributorInfo.getDistName()==null || distributorInfo.getDistName().isEmpty()){
             throw  new BizException("-1","经销商姓名不能为空！");
         }
-        if(distributorInfo.getId()<=0){
+        if(distributorInfo.getId()==null ||distributorInfo.getId()<=0){
             throw  new BizException("-1","经销商ID不能为空！");
         }
         return distributorInfoService.Edit(distributorInfo)>0;
