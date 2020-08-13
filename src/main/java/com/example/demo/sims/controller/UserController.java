@@ -2,6 +2,7 @@ package com.example.demo.sims.controller;
 
 
 import com.example.demo.sims.common.exception.BizException;
+import com.example.demo.sims.common.model.ResultBody;
 import com.example.demo.sims.entity.User;
 import com.example.demo.sims.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,59 +29,63 @@ public class UserController {
    public IUserService userService;
 
     @GetMapping("/findall")
-   public List<User> FindAll()
+   public ResultBody FindAll()
    {
        List<User> userList = userService.FindAll();
        userList.forEach(System.out::println);
-       return userList;
-
+       return  ResultBody.success(userList);
    }
 
    @GetMapping("/finduser")
-   public User FindUser(int id)
+   public ResultBody FindUser(int id)
    {
       User user = userService.FindUser(id);
       System.out.println(user);
       System.out.println("name:"+user.getName());
-       return  user;
+       return  ResultBody.success(user);
    }
 
 
    @GetMapping("/finduserbyname")
-   public List<User> FindUserByName(String name)
+   public ResultBody FindUserByName(String name)
    {
        List<User> userList = userService.FindUserByName(name);
        userList.forEach(System.out::println);
-       return userList;
+       return ResultBody.success(userList);
    }
 
     @GetMapping("/finduserbynamexml")
-    public List<User> FindUserByNameXml(String name)
+    public ResultBody FindUserByNameXml(String name)
     {
         List<User> userList = userService.FindUserByNameXml(name);
         userList.forEach(System.out::println);
-        return userList;
+        return ResultBody.success(userList);
     }
 
     @GetMapping("/finduserbynamewapper")
-    public List<User> FindUserByNameWapper(String name)
+    public ResultBody FindUserByNameWapper(String name)
     {
         List<User> userList = userService.FindUserByNameWapper(name);
         userList.forEach(System.out::println);
-        return userList;
+        return ResultBody.success(userList);
     }
 
     @PostMapping("/add")
-    public boolean Add(@RequestBody User user)
+    public ResultBody Add(@RequestBody User user)
     {
         if(user.getName()==null || user.getName().isEmpty()){
             throw  new BizException("-1","用户姓名不能为空！");
         }
-        return userService.Add(user)>0;
+        if(userService.Add(user)>0)
+        {
+            return ResultBody.success();
+        }else{
+            return ResultBody.error("新增失败！");
+        }
     }
 
     @PostMapping("/edit")
-    public boolean Edit(@RequestBody User user)
+    public ResultBody Edit(@RequestBody User user)
     {
         if(user.getName()==null|| user.getName().isEmpty()){
             throw  new BizException("-1","用户姓名不能为空！");
@@ -88,13 +93,25 @@ public class UserController {
         if(user.getId()==null|| user.getId()<=0){
             throw  new BizException("-1","用户ID不能为空！");
         }
-        return userService.Edit(user)>0;
+        if(userService.Edit(user)>0)
+        {
+            return ResultBody.success();
+        }else{
+            return ResultBody.error("编辑失败！");
+        }
     }
 
     @GetMapping("/remove")
-    public boolean Remove(int id)
+    public ResultBody Remove(int id)
     {
-        return  userService.removeById(id);
+        if(userService.removeById(id))
+        {
+            return ResultBody.success();
+        }
+        else
+        {
+            return ResultBody.error("删除失败！");
+        }
     }
 
 

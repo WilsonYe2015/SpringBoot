@@ -3,6 +3,9 @@ package com.example.demo.sims.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.sql.ClientInfoStatus;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -28,6 +31,5 @@ public class User implements Serializable {
     private String age;
 
     private String email;
-
 
 }

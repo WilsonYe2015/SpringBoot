@@ -20,6 +20,11 @@ public class ResultBody {
      */
     private Object result;
 
+    /**
+     * 成功标识
+     * */
+    private boolean success;
+
     public ResultBody() {
     }
 
@@ -50,6 +55,11 @@ public class ResultBody {
 
     public void setResult(Object result) {
         this.result = result;
+    }
+
+    public boolean getSuccess()
+    {
+       return this.code == CommonEnum.SUCCESS.getResultCode();
     }
 
 
@@ -108,9 +118,10 @@ public class ResultBody {
         return rb;
     }
 
+    /*
     @Override
     public String toString() {
         return JSONUtils.toJSONString(this);
     }
-
+    */
 }

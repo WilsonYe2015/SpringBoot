@@ -2,6 +2,7 @@ package com.example.demo.sims.controller;
 
 
 import com.example.demo.sims.common.exception.BizException;
+import com.example.demo.sims.common.model.ResultBody;
 import com.example.demo.sims.entity.DistributorInfo;
 import com.example.demo.sims.service.IDistributorInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,32 +29,38 @@ public class DistributorInfoController {
     private IDistributorInfoService distributorInfoService;
 
     @GetMapping("/findallwithuser")
-    public List<Map<String,Object>> FindAllDistributorWithUser()
+    public ResultBody FindAllDistributorWithUser()
     {
         List<Map<String,Object>> mapList = distributorInfoService.FindAllDistributorWithUser();
         mapList.forEach(System.out::println);
-        return mapList;
+        return ResultBody.success(mapList);
     }
 
     @GetMapping("/findallwithuserxml")
-    public List<Map<String,Object>> FindAllDistributorWithUserXml()
+    public ResultBody FindAllDistributorWithUserXml()
     {
         List<Map<String,Object>> mapList = distributorInfoService.FindAllDistributorWithUserXml();
         mapList.forEach(System.out::println);
-        return mapList;
+        return ResultBody.success(mapList);
     }
 
     @PostMapping("/add")
-    public boolean Add(@RequestBody DistributorInfo distributorInfo)
+    public ResultBody Add(@RequestBody DistributorInfo distributorInfo)
     {
         if(distributorInfo.getDistName()==null || distributorInfo.getDistName().isEmpty()){
             throw  new BizException("-1","经销商姓名不能为空！");
         }
-        return distributorInfoService.Add(distributorInfo)>0;
+        if (distributorInfoService.Add(distributorInfo)>0)
+        {
+            return ResultBody.success();
+        }
+        else{
+            return ResultBody.error("新增失败！");
+        }
     }
 
     @PostMapping("/edit")
-    public boolean Edit(@RequestBody DistributorInfo distributorInfo)
+    public ResultBody Edit(@RequestBody DistributorInfo distributorInfo)
     {
         if(distributorInfo.getDistName()==null || distributorInfo.getDistName().isEmpty()){
             throw  new BizException("-1","经销商姓名不能为空！");
@@ -61,19 +68,32 @@ public class DistributorInfoController {
         if(distributorInfo.getId()==null ||distributorInfo.getId()<=0){
             throw  new BizException("-1","经销商ID不能为空！");
         }
-        return distributorInfoService.Edit(distributorInfo)>0;
+        if (distributorInfoService.Edit(distributorInfo)>0)
+        {
+            return ResultBody.success();
+        }
+        else{
+            return ResultBody.error("新增失败！");
+        }
     }
 
     @GetMapping("/find")
-    public DistributorInfo Find(int id)
+    public ResultBody Find(int id)
     {
-        return distributorInfoService.Find(id);
+        return ResultBody.success(distributorInfoService.Find(id));
     }
 
     @GetMapping("/remove")
-    public boolean Remove(int id)
+    public ResultBody Remove(int id)
     {
-        return  distributorInfoService.removeById(id);
+        if(distributorInfoService.removeById(id))
+        {
+            return ResultBody.success();
+        }
+        else
+        {
+            return ResultBody.error("删除失败！");
+        }
     }
 
 }
