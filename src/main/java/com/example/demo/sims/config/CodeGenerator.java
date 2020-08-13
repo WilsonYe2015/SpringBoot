@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.sims.config;
 
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;

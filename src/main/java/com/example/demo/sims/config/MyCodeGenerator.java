@@ -1,3 +1,5 @@
+package com.example.demo.sims.config;
+
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
