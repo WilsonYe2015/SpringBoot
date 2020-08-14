@@ -21,6 +21,8 @@ public interface IDistributorInfoService extends IService<DistributorInfo> {
 
     public List<Map<String,Object>> FindAllDistributorWithUserXml();
 
+    public List<Map<String,Object>> SelectMyCustomPage(int iCurrentPage,int iPageSize);
+
     public DistributorInfo Find(int id);
 
     public int Add(DistributorInfo distributorInfo);

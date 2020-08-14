@@ -1,6 +1,9 @@
 package com.example.demo.sims.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.sims.common.exception.BizException;
 import com.example.demo.sims.common.model.ResultBody;
 import com.example.demo.sims.entity.DistributorInfo;
@@ -40,6 +43,14 @@ public class DistributorInfoController {
     public ResultBody FindAllDistributorWithUserXml()
     {
         List<Map<String,Object>> mapList = distributorInfoService.FindAllDistributorWithUserXml();
+        mapList.forEach(System.out::println);
+        return ResultBody.success(mapList);
+    }
+
+    @GetMapping("/SelectByPage")
+    public ResultBody SelectByPage(int iCurrentPage,int iPageSize)
+    {
+        List<Map<String,Object>> mapList = distributorInfoService.SelectMyCustomPage(iCurrentPage,iPageSize);
         mapList.forEach(System.out::println);
         return ResultBody.success(mapList);
     }

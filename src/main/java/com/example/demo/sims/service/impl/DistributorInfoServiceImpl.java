@@ -1,6 +1,8 @@
 package com.example.demo.sims.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.sims.entity.DistributorInfo;
 import com.example.demo.sims.mapper.DistributorInfoMapper;
 import com.example.demo.sims.service.IDistributorInfoService;
@@ -34,6 +36,13 @@ public class DistributorInfoServiceImpl extends ServiceImpl<DistributorInfoMappe
     @Override
     public DistributorInfo Find(int id) {
         return distributorInfoMapper.selectById(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> SelectMyCustomPage(int iCurrentPage, int iPageSize) {
+        IPage<Map<String,Object>> distributorInfoPage = new Page<>(iCurrentPage, iPageSize);//参数一是当前页，参数二是每页个数
+        distributorInfoPage = distributorInfoMapper.SelectMyCustomPage(distributorInfoPage, null);
+        return distributorInfoPage.getRecords();
     }
 
     @Override
