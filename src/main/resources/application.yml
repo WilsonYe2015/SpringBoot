@@ -23,3 +23,5 @@ spring:
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 logging:
   config: classpath:logback-spring.xml
+mybatis-plus:
+  type-aliases-package: com.example.demo.sims.entity
