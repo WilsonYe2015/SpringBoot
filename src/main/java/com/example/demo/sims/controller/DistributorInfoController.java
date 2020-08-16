@@ -47,7 +47,7 @@ public class DistributorInfoController {
         return ResultBody.success(mapList);
     }
 
-    @GetMapping("/SelectByPage")
+    @GetMapping("/selectbypage")
     public ResultBody SelectByPage(int iCurrentPage,int iPageSize)
     {
         List<Map<String,Object>> mapList = distributorInfoService.SelectMyCustomPage(iCurrentPage,iPageSize);

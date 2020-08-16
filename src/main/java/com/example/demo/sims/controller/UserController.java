@@ -7,6 +7,8 @@ import com.example.demo.sims.entity.User;
 import com.example.demo.sims.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -80,6 +82,23 @@ public class UserController {
         {
             return ResultBody.success();
         }else{
+            return ResultBody.error("新增失败！");
+        }
+    }
+
+    @PostMapping("/addtran")
+    @Transactional()
+    public  ResultBody AddTran(@RequestBody User user)
+    {
+        if(user.getName()==null || user.getName().isEmpty()){
+            throw  new BizException("-1","用户姓名不能为空！");
+        }
+        boolean bsuccess = userService.Add(user)>0;
+        if (bsuccess)
+        {
+            throw  new BizException("-1","测试事务");
+        }else
+        {
             return ResultBody.error("新增失败！");
         }
     }
