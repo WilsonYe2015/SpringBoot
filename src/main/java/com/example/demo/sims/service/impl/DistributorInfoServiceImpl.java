@@ -28,6 +28,16 @@ public class DistributorInfoServiceImpl extends ServiceImpl<DistributorInfoMappe
     private DistributorInfoMapper distributorInfoMapper;
 
     @Override
+    public int Count(String keyword) {
+        QueryWrapper<DistributorInfo> wapper = new QueryWrapper<DistributorInfo>();
+        if (!(keyword==null || keyword.isEmpty()))
+        {
+            wapper.like("dist_name",keyword);
+        }
+        return distributorInfoMapper.selectCount(wapper);
+    }
+
+    @Override
     public List<Map<String,Object>> FindAllDistributorWithUser()
     {
         return distributorInfoMapper.FindAllDistributorWithUser();
@@ -39,9 +49,14 @@ public class DistributorInfoServiceImpl extends ServiceImpl<DistributorInfoMappe
     }
 
     @Override
-    public List<Map<String, Object>> SelectMyCustomPage(int iCurrentPage, int iPageSize) {
+    public List<Map<String, Object>> SelectMyCustomPage(String keyWord,int iCurrentPage, int iPageSize) {
+        QueryWrapper<Map<String,Object>> wapper = new QueryWrapper<Map<String,Object>>();
+        if (!(keyWord==null || keyWord.isEmpty()))
+        {
+            wapper.like("dist_name",keyWord);
+        }
         IPage<Map<String,Object>> distributorInfoPage = new Page<>(iCurrentPage, iPageSize);//参数一是当前页，参数二是每页个数
-        distributorInfoPage = distributorInfoMapper.SelectMyCustomPage(distributorInfoPage, null);
+        distributorInfoPage = distributorInfoMapper.SelectMyCustomPage(distributorInfoPage, wapper);
         return distributorInfoPage.getRecords();
     }
 

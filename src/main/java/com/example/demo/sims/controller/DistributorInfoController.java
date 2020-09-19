@@ -48,11 +48,18 @@ public class DistributorInfoController {
     }
 
     @GetMapping("/selectbypage")
-    public ResultBody SelectByPage(int iCurrentPage,int iPageSize)
+    public ResultBody SelectByPage(String keyWord,int iCurrentPage,int iPageSize)
     {
-        List<Map<String,Object>> mapList = distributorInfoService.SelectMyCustomPage(iCurrentPage,iPageSize);
+        List<Map<String,Object>> mapList = distributorInfoService.SelectMyCustomPage(keyWord,iCurrentPage,iPageSize);
         mapList.forEach(System.out::println);
         return ResultBody.success(mapList);
+    }
+
+    @GetMapping("/count")
+    public ResultBody Count(String keyWord)
+    {
+       int total= distributorInfoService.Count(keyWord);
+       return ResultBody.success(total);
     }
 
     @PostMapping("/add")

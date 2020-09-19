@@ -21,7 +21,7 @@ public interface IDistributorInfoService extends IService<DistributorInfo> {
 
     public List<Map<String,Object>> FindAllDistributorWithUserXml();
 
-    public List<Map<String,Object>> SelectMyCustomPage(int iCurrentPage,int iPageSize);
+    public List<Map<String,Object>> SelectMyCustomPage(String keyWord, int iCurrentPage,int iPageSize);
 
     public DistributorInfo Find(int id);
 
@@ -30,4 +30,6 @@ public interface IDistributorInfoService extends IService<DistributorInfo> {
     public int Edit(DistributorInfo distributorInfo);
 
     public int Remove(int id);
+
+    public int Count(String keyword);
 }
